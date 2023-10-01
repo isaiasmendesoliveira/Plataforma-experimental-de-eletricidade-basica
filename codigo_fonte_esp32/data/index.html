@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <title>Laboratório Remoto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="estilo.css">
+  <link rel="icon" href="favicon.ico">
+  <script src="script.js"></script>
+  <script src="umd.min.js"></script>
+  <script src="svg-export.min.js"></script>
+  <body>
+  <!-- Navbar -->
+    <div id="menuexperimento" class="w3-top" style="display:none;">
+      <div class="w3-bar w3-green w3-card w3-left-align w3-large">
+        <a href="javascript:void(0);" class="w3-bar-item w3-button w3-padding-large w3-black" onclick="SairExperimento();">Sair</a>
+      </div>
+    </div>
+    <div id="menugeral" class="w3-top">
+      <div class="w3-bar w3-green w3-card w3-left-align w3-large">
+        <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="ControleMenu()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+        <a href="#inicio" class="w3-bar-item w3-button w3-padding-large w3-blue">Início</a>
+        <a href="#inicio" class="w3-bar-item w3-button w3-padding-large w3-black" onclick="ExibirExperimento();">Acessar</a>
+        <a href="#descricao" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-red">Descrição</a>
+        <a href="#tutoriais" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-red">Tutoriais</a>
+        <a href="#materiais" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-red">Materiais</a>
+        <a href="#autor" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white w3-red">Autor</a>
+      </div>
+      <!-- Navbar on small screens -->
+      <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+        <a href="#descricao" class="w3-bar-item w3-button w3-padding-large" onclick="ControleMenu()">Descrição</a>
+        <a href="#tutoriais" class="w3-bar-item w3-button w3-padding-large" onclick="ControleMenu()">Tutoriais</a>
+        <a href="#materiais" class="w3-bar-item w3-button w3-padding-large" onclick="ControleMenu()">Materiais</a>
+        <a href="#autor" class="w3-bar-item w3-button w3-padding-large" onclick="ControleMenu()">Autor</a>
+      </div>
+    </div>
+    <!-- Início -->
+    <header class="w3-container w3-green w3-center" style="padding-bottom:0px; padding-top: 48px;" id="inicio">
+      <h1>Laboratório Remoto</h1>
+      <p>
+        <span id="tempo"><b>Duraçao: </b>30 minutos</span>
+      </p>
+      <p>
+        <span id="espaco" class="w3-tag w3-pale-red w3-round"></span>
+        <span id="emuso" class="w3-tag w3-pale-red w3-round" style="display:none;">Em uso</span>
+        <span id="disponivel" class="w3-tag w3-light-grey w3-round" style="display:none">Disponível</span>
+        <span id="mensagem" class="w3-tag w3-red w3-round" style="display:none;">Laboratório em uso! Tente mais tarde!</span>
+      </p>
+    </header>
+    <section id="experimento" class="w3-row w3-center" style="padding-top:10px;display: none;"> <!--  -->
+      <div class="w3-half w3-center">
+          <img id="video" src="" alt="Vídeo em tempo real" height="300" width="400">
+          <!--<svg width="400" height="330" style="border:1px solid black;">
+            <text x="200" y="165" class="texto">Espaço reservado para o vídeo</text>
+          </svg>  -->
+      </div>
+      <div class="w3-half w3-center">
+      <svg id="SVGCircuito" width="389" height="330">
+        <!-- CHAVES -->
+        <rect id="ch01" x="0" y="67.5" width="30" height="30" class="chave" onclick="MudarCor('ch01')"/>
+        <line id="fec01" x1="14" y1="97.5" x2="14" y2="67.5" class="linha" style="display: none;"/>
+        <line id="abr01" x1="15.5" y1="98" x2="1" y2="68" class="linha"/>
+
+        <rect id="ch02" x="123" y="15" width="30" height="30" class="chave" onclick="MudarCor('ch02')"/>
+        <line id="fec02" x1="123" y1="29" x2="153" y2="29" class="linha" style="display: none;"/>
+        <line id="abr02" x1="122.5" y1="30" x2="153" y2="16" class="linha"/>
+
+        <rect id="ch03" x="123" y="225" width="30" height="30" class="chave" onclick="MudarCor('ch03')"/>
+        <line id="fec03" x1="123" y1="239" x2="153" y2="239" class="linha" style="display: none;"/>
+        <line id="abr03" x1="122.5" y1="240" x2="153" y2="226" class="linha"/>
+
+        <rect id="ch04" x="205" y="15" width="30" height="30" class="chave" onclick="MudarCor('ch04')"/>
+        <line id="fec04" x1="205" y1="29" x2="235" y2="29" class="linha" style="display: none;"/>
+        <line id="abr04" x1="204.5" y1="30" x2="235" y2="16" class="linha"/>
+
+        <rect id="ch05" x="205" y="225" width="30" height="30" class="chave" onclick="MudarCor('ch05')"/>
+        <line id="fec05" x1="205" y1="239" x2="235" y2="239" class="linha" style="display: none;"/>
+        <line id="abr05" x1="204.5" y1="240" x2="235" y2="226" class="linha"/>
+
+        <rect id="ch06" x="287" y="15" width="30" height="30" class="chave" onclick="MudarCor('ch06')"/>
+        <line id="fec06" x1="287" y1="29" x2="317" y2="29" class="linha" style="display: none;"/>
+        <line id="abr06" x1="286.5" y1="30" x2="317" y2="16" class="linha"/>
+
+        <rect id="ch07" x="287" y="225" width="30" height="30" class="chave" onclick="MudarCor('ch07')"/>
+        <line id="fec07" x1="287" y1="239" x2="317" y2="239" class="linha" style="display: none;"/>
+        <line id="abr07" x1="286.5" y1="240" x2="317" y2="226" class="linha"/>
+
+
+        <rect id="ch08" x="0" y="247.5" width="30" height="30" class="chave" onclick="MudarCor('ch08')"/>
+        <line id="fec08" x1="14" y1="277.5" x2="14" y2="247.5" class="linha" style="display: none;"/>
+        <line id="abr08" x1="15.5" y1="278" x2="1" y2="248" class="linha"/>
+        <!-- FONTE -->
+        <rect id="font" x="0" y="157.5" width="30" height="30" class="fonte"/>
+        <line id="f01" x1="5" y1="169.5" x2="25" y2="169.5" class="linha"/>
+        <line id="f02" x1="9" y1="175.5" x2="21" y2="175.5" class="linha"/>
+
+        <line id="f03" x1="17" y1="163.5" x2="24" y2="163.5" style="stroke-width:1;stroke:rgb(0, 0, 0);"/>
+        <line id="f04" x1="17" y1="181.5" x2="24" y2="181.5" style="stroke-width:1;stroke:rgb(0, 0, 0);"/>
+
+        <line id="f05" x1="20.5" y1="160" x2="20.5" y2="167" style="stroke-width:1;stroke:rgb(0, 0, 0);"/>
+
+        <!-- FUSE -->
+        <rect id="fuse" x="7.5" y="112.5" width="15" height="30" class="fuse"/>
+        
+
+        <!-- LÂMPADAS -->
+          <circle id="la01" cx="97" cy="135" r="15" class="lamp"/>
+          <circle id="la02" cx="179" cy="135" r="15" class="lamp"/>
+          <circle id="la03" cx="261" cy="135" r="15" class="lamp"/>
+          <circle id="la04" cx="343" cy="135" r="15" class="lamp"/>
+          
+          <!-- DISPLAYS -->
+          <rect id="di01" x="57" y="165" width="80" height="45" class="disp"/>
+          
+          <text x="97" y="180" class="texto" style="font-weight: bold;">U <a id="tu" style="font-weight: normal;"> = 0,00</a></text>
+          <text x="97" y="202.5" class="texto" style="font-weight: bold;">I <a id="cu" style="font-weight: normal;"> = 0,00</a></text>
+
+          <rect id="di02" x="139" y="60" width="80" height="45" class="disp"/>
+          <text class="texto">
+            <tspan x="179" y="75">
+              <tspan font-weight="bold">U</tspan>
+              <tspan>
+                <a id="td"> = 0,00</a>
+              </tspan>
+            </tspan>
+            <tspan x="179" y="97.5">
+              <tspan font-weight="bold">I</tspan>
+              <tspan>
+                <a id="cd"> = 0,00</a>
+              </tspan>
+            </tspan>
+          </text>
+
+          <rect id="di03" x="221" y="165" width="80" height="45" class="disp"/>
+          <text class="texto">
+            <tspan x="261" y="180">
+              <tspan font-weight="bold">U</tspan>
+              <tspan>
+                <a id="tt"> = 0,00</a>
+              </tspan>
+            </tspan>
+            <tspan x="261" y="202.5">
+              <tspan font-weight="bold">I</tspan>
+              <tspan>
+                <a id="ct"> = 0,00</a>
+              </tspan>
+            </tspan>
+          </text>
+          <rect id="di04" x="303" y="60" width="80" height="45" class="disp"/>
+          <text class="texto">
+            <tspan x="343" y="75">
+              <tspan font-weight="bold">U</tspan>
+              <tspan>
+                <a id="tq"> = 0,00</a>
+              </tspan>
+            </tspan>
+            <tspan x="343" y="97.5">
+              <tspan font-weight="bold">I</tspan>
+              <tspan>
+                <a id="cq"> = 0,00</a>
+              </tspan>
+            </tspan>
+          </text>
+
+          <!-- LINHAS VERTICAIS -->
+          <line id="liv01" x1="15" y1="30" x2="15" y2="67.5" class="linha"/>
+          <line id="liv02" x1="15" y1="97.5" x2="15" y2="168.5" class="linha"/>
+          <line id="liv03" x1="15" y1="176.5" x2="15" y2="247.5" class="linha"/>
+          <line id="liv04" x1="15" y1="277.5" x2="15" y2="315" class="linha"/>
+
+          <line id="liv05" x1="97" y1="30" x2="97" y2="120" class="linha"/>
+          <line id="liv06" x1="97" y1="150" x2="97" y2="165" class="linha"/>
+          <line id="liv07" x1="97" y1="210" x2="97" y2="240" class="linha"/>
+
+          <line id="liv08" x1="179" y1="30" x2="179" y2="60" class="linha"/>
+          <line id="liv09" x1="179" y1="105" x2="179" y2="120" class="linha"/>
+          <line id="liv10" x1="179" y1="150" x2="179" y2="240" class="linha"/>
+
+          <line id="liv11" x1="261" y1="30" x2="261" y2="120" class="linha"/>
+          <line id="liv12" x1="261" y1="150" x2="261" y2="165" class="linha"/>
+          <line id="liv13" x1="261" y1="210" x2="261" y2="240" class="linha"/>
+
+          <line id="liv14" x1="343" y1="30" x2="343" y2="60" class="linha"/>
+          <line id="liv15" x1="343" y1="105" x2="343" y2="120" class="linha"/>
+          <line id="liv16" x1="343" y1="150" x2="343" y2="240" class="linha"/>
+
+          <line id="liv17" x1="384" y1="240" x2="384" y2="315" class="linha"/>
+
+          <!-- LINHAS HORIZONTAIS -->
+          <line id="lih01" x1="15" y1="30" x2="97" y2="30" class="linha"/>
+
+          <line id="lih02" x1="97" y1="30" x2="123" y2="30" class="linha"/>
+          <line id="lih03" x1="153" y1="30" x2="179" y2="30" class="linha"/>
+          <line id="lih04" x1="179" y1="30" x2="205" y2="30" class="linha"/>
+          <line id="lih05" x1="235" y1="30" x2="261" y2="30" class="linha"/>
+          <line id="lih06" x1="261" y1="30" x2="287" y2="30" class="linha"/>
+          <line id="lih07" x1="317" y1="30" x2="343" y2="30" class="linha"/>
+
+          <line id="lih08" x1="97" y1="240" x2="123" y2="240" class="linha"/>
+          <line id="lih09" x1="153" y1="240" x2="179" y2="240" class="linha"/>
+          <line id="lih10" x1="179" y1="240" x2="205" y2="240" class="linha"/>
+          <line id="lih11" x1="235" y1="240" x2="261" y2="240" class="linha"/>
+          <line id="lih12" x1="261" y1="240" x2="287" y2="240" class="linha"/>
+          <line id="lih13" x1="317" y1="240" x2="343" y2="240" class="linha"/>
+          <line id="lih14" x1="343" y1="240" x2="384" y2="240" class="linha"/>
+
+          <line id="lih15" x1="15" y1="315" x2="384" y2="315" class="linha"/>
+          
+          <!-- TEXTOS -->
+          <text id="tc01" x="40" y="82.5" class="texto">C1</text>
+
+          <text id="tc02" x="138" y="7.5" class="texto">C2</text>
+          <text id="tc03" x="138" y="262.5" class="texto">C3</text>
+          <text id="tc04" x="220" y="7.5" class="texto">C4</text>
+          <text id="tc05" x="220" y="262.5" class="texto">C5</text>
+          <text id="tc06" x="302" y="7.5" class="texto">C6</text>
+          <text id="tc07" x="302" y="262.5" class="texto">C7</text>
+
+          <text id="tc08" x="40" y="262.5" class="texto">C8</text>
+
+          <text id="tfon1" x="43" y="165" class="texto">12V</text>
+          <text id="tfon2" x="43" y="182.5" class="texto" style="font-size: 10px;">3,2A</text>
+          <text id="tfus" x="47" y="127.5" class="texto">FUSE</text>
+          <!-- PONTOS -->
+          <circle id="po01" cx="15" cy="30" r="3" class="pont"/>
+          <circle id="po02" cx="97" cy="30" r="3" class="pont"/>
+          <circle id="po03" cx="179" cy="30" r="3" class="pont"/>
+          <circle id="po04" cx="261" cy="30" r="3" class="pont"/>
+          <circle id="po05" cx="343" cy="30" r="3" class="pont"/>
+          <circle id="po06" cx="97" cy="240" r="3" class="pont"/>
+          <circle id="po07" cx="179" cy="240" r="3" class="pont"/>
+          <circle id="po08" cx="261" cy="240" r="3" class="pont"/>
+          <circle id="po09" cx="343" cy="240" r="3" class="pont"/>
+          <circle id="po10" cx="384" cy="240" r="3" class="pont"/>
+          <circle id="po11" cx="15" cy="315" r="3" class="pont"/>
+          <circle id="po12" cx="384" cy="315" r="3" class="pont"/>
+
+      </svg><br>
+      <a id="BtnSalvar" class="w3-bar-item w3-button w3-padding-large w3-blue">Salvar Circuito</a>
+      <script>
+        document.querySelector("#BtnSalvar").onclick = function(){
+            svgExport.downloadJpeg(document.querySelector("#SVGCircuito"), "Circuito Equivalente");
+        }
+      </script>
+    </div>
+    </section>
+    <section id="conteudo">
+      <!-- Descrição-->
+      <div class="w3-row-padding w3-padding-32 w3-container" id="descricao">
+        <div class="w3-content">
+          <div class="w3-twothird">
+            <h2>Descrição</h2>
+            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class="w3-third w3-center">
+            <i class="fa fa-anchor w3-padding-32 w3-text-red"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Tutoriais -->
+      <div class="w3-row-padding w3-light-grey w3-padding-32 w3-container" id="tutoriais">
+        <div class="w3-content">
+          <div class="w3-third w3-center">
+            <i class="fa fa-coffee w3-padding-32 w3-text-red w3-margin-right"></i>
+          </div>
+          <div class="w3-twothird">
+            <h2>Tutoriais</h2>
+            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Materiais-->
+      <div class="w3-row-padding w3-padding-32 w3-container" id="materiais">
+        <div class="w3-content">
+          <div class="w3-twothird">
+            <h2>Materiais</h2>
+            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+          <div class="w3-third w3-center">
+            <i class="fa fa-anchor w3-padding-32 w3-text-red"></i>
+          </div>
+        </div>
+      </div>
+      <!-- Autor -->
+      <div class="w3-row-padding w3-light-grey w3-padding-32 w3-container" id="autor">
+        <div class="w3-content">
+          <div class="w3-third w3-center">
+            <i class="fa fa-coffee w3-padding-32 w3-text-red w3-margin-right"></i>
+          </div>
+          <div class="w3-twothird">
+            <h2>Autor</h2>
+            <h5 class="w3-padding-32">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</h5>
+            <p class="w3-text-grey">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+            occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+            laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="w3-container w3-green w3-center w3-row w3-padding-32">
+      <div class="w3-col s6 w3-center">
+        <figure>
+          <img alt="logotipo do ifsp" src="logo_ifsp.jpg">
+        </figure>
+      </div>
+      <div class="w3-col s6 w3-center">
+        <figure>
+          <img alt="logotipo da pucc" src="logo_pucc.png" style="background-color: white;">
+        </figure>
+      </div>
+    </div>
+    <!-- Rodapé -->
+    <footer class="w3-container w3-padding-32 w3-center">  
+      <p><b>Desenvolvido por:</b> Isaias Mendes de Oliveira, 2022</p>
+      <p>Feito com <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </footer>
+  </body>
+</html>
